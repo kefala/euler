@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Kefala Euler</title>
+</head>
+<body>
+	
+	<script src="main.js"></script>
+
+	<script>
+		(function(){
+
+			window.App = {
+				Models: {},
+				Collections: {},
+				Views: {},
+				Router: {}
+			};
+			App.Router = Backbone.Router.extend({
+				routes: {
+					'': 'index',
+					'facha': 'facha'
+				},
+				index: function(){
+					$(document.body).append("Index route has been called..");
+				},
+				facha: function(){
+					$(document.body).append("facha route has been called..");
+				}
+			});
+
+			new App.Router;
+			Backbone.history.start();
+			console.log($);
+
+		})();
+	</script>
+
+</body>
+</html>
