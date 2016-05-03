@@ -6,9 +6,10 @@ var paths = {
 
     vendor : [
     'node_modules/jquery/dist/jquery.min.js',
+    'node_modules/mustache/mustache.min.js',
     'node_modules/underscore/underscore-min.js',
     'node_modules/backbone/backbone-min.js',
-    'node_modules/materialize/dist/js/materialize.min.js'
+    'node_modules/materialize-css/dist/js/materialize.min.js'
     ]
   },
 
@@ -16,7 +17,7 @@ var paths = {
     dev: [
     ],
     vendor: [
-    'node_modules/materialize/dist/css/materialize.min.css',
+    'node_modules/materialize-css/dist/css/materialize.min.css',
     ]
   },
 
@@ -28,7 +29,7 @@ var paths = {
   },
 
   'fonts': {
-      fonts: []
+      fonts: ['node_modules/materialize-css/dist/font/roboto/*']
   }
 
 };
@@ -167,7 +168,7 @@ gulp.task('test', function (done) {
 
 gulp.task('moveFonts', function () {
   return gulp.src(paths.fonts.fonts)
-  .pipe(gulp.dest('dist/fonts/'));
+  .pipe(gulp.dest('dist/fonts/roboto/'));
 });
 
 

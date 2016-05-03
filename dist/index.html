@@ -3,6 +3,12 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Kefala Euler</title>
+	
+
+	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<link rel="stylesheet" type="text/css" media="screen,projection" href="main.css">
+
 </head>
 <body>
 	
@@ -30,9 +36,10 @@
 				}
 			});
 
-			new App.Router;
-			Backbone.history.start();
-			console.log($);
+			$(document).ready(function () {
+				new App.Router;
+				Backbone.history.start();
+			});
 
 		})();
 	</script>
