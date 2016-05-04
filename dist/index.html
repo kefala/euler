@@ -14,35 +14,5 @@
 	
 	<script src="main.js"></script>
 
-	<script>
-		(function(){
-
-			window.App = {
-				Models: {},
-				Collections: {},
-				Views: {},
-				Router: {}
-			};
-			App.Router = Backbone.Router.extend({
-				routes: {
-					'': 'index',
-					'facha': 'facha'
-				},
-				index: function(){
-					$(document.body).append("Index route has been called..");
-				},
-				facha: function(){
-					$(document.body).append("facha route has been called..");
-				}
-			});
-
-			$(document).ready(function () {
-				new App.Router;
-				Backbone.history.start();
-			});
-
-		})();
-	</script>
-
 </body>
 </html>

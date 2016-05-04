@@ -2,6 +2,9 @@ var paths = {
   js : {
 
     dev : [
+    'src/Core/app.js',
+    'src/Core/router.js',
+    'src/Core/main.js'
     ],
 
     vendor : [
