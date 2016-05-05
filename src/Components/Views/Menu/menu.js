@@ -1,24 +1,32 @@
-(function () {
-	var DocumentRow = Backbone.View.extend({
+(function (App) {
 
-		tagName: "li",
+	var PrincipalMenu = Backbone.View.extend({
 
-		className: "document-row",
+		tagName: "menu",
+
+		className: "principal-menu",
+
+		template: null,
 
 		events: {
-			"click .icon":          "open",
-			"click .button.edit":   "openEditDialog",
-			"click .button.delete": "destroy"
 		},
 
 		initialize: function() {
-			this.listenTo(this.model, "change", this.render);
 		},
 
 		render: function() {
-			console.log("Fahca");
-			return this;
+			var that = this;
+
+			$.get(App.Config.views.templateFolder + '/component.menu.html', function (response) {
+				that.$el.html(response);
+			});
+			
+			return that;
+
 		}
 
 	});
-})();
+
+	App.Views.PrincipalMenu = PrincipalMenu;
+
+})(window.App);
