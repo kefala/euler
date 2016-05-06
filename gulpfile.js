@@ -3,8 +3,12 @@ var paths = {
 
     dev : [
     'src/Core/app.js',
+    'src/Core/config.js',
     'src/Core/router.js',
-    'src/Core/main.js'
+    'src/Core/main.js',
+    'src/Components/**/*.js',
+    'src/**/Views/*.js',
+    'src/**/*.js'
     ],
 
     vendor : [
@@ -26,6 +30,7 @@ var paths = {
 
   html: {
     directives: [
+      'src/Components/**/*.html'
     ],
     views: [
     ]
@@ -138,7 +143,7 @@ gulp.task('moveDirectives', function () {
   return gulp.src(paths.html.directives)
   .pipe(rename(function (path) {  
     path.dirname = "";
-    path.basename = "directive." + path.basename;
+    path.basename = "component." + path.basename;
   }))
   .pipe(minifyHTML({ empty: true }))
   .pipe(gulp.dest('dist/miame/'));
