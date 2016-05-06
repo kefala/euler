@@ -2,11 +2,9 @@
 
 	var PrincipalMenu = Backbone.View.extend({
 
-		tagName: "menu",
+		tagName: "div",
 
 		className: "principal-menu",
-
-		template: null,
 
 		events: {
 		},
@@ -27,6 +25,6 @@
 
 	});
 
-	App.Views.PrincipalMenu = PrincipalMenu;
+	App.Components.PrincipalMenu = PrincipalMenu;
 
 })(window.App);

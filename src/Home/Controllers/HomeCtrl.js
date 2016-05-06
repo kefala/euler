@@ -1,9 +1,7 @@
-(function (MenuComponent) {
+(function (HomeView) {
 	
-	
-	var menu = new App.Views.PrincipalMenu();
-	var a = menu.render();
-	console.log(a.el);
-	$("body").append(a.el);
+	function HomeCtrl(argument) {
+		// body...
+	}
 
-})(window.App.Views.PrincipalMenu); 
+})(window.App.Views.Home); 
