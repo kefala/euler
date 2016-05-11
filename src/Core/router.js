@@ -23,7 +23,7 @@
 		home: function(){
 			
 			var home = new App.Views.HomeView();
-			rHome = home.render();
+			var rHome = home.render();
 			
 			printTemplate([rHome.el]);
 			

@@ -68,7 +68,7 @@ j+="translateY("+(F[0].clientHeight-item_width)/2+"px)"),i=n[f(p)],i.style[z]=j+
 		home: function(){
 			
 			var home = new App.Views.HomeView();
-			rHome = home.render();
+			var rHome = home.render();
 			
 			printTemplate([rHome.el]);
 			

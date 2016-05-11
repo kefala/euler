@@ -1,44 +1,35 @@
-var i = 3, j = 5, sum = 0;
-
-while (j < 1000) {
-	sum += + i + j * (j % 3 !== 0);
-	i += 3;
-	j += 5;
-}
-
-while (i < 1000) {
-	sum = sum + i;
-	i += 3;
-}
-
-//233168
-
-/*MOSTRAR LA SUMATORIA DE LOS MULTIPLOS DE 3 Y 5 DE 0  A 1000
-EJ 3,5,6,9 SON LOS MULTIPLOS DE 0 A 12
-*/
-
-/*
-
-*/
-
 var i = 0, sum = 0;
 
 while (i++ < 333)
 	sum += (3*i) + ( ((5*i) % 3 !== 0 && i < 200) * (5*i) );
 
-/******************************/
-var i = 0, sum = 0;
-while (i++ < 200)
-	sum += (3*i) + ( ((5*i) % 3 !== 0 ) * (5*i));
-while (i++ < 333)
-	sum += (3*i);
+/****************/
+function getMultiples(i) {
+	return (3*i) + ( ((5*i) % 3 !== 0 && i < 200) * (5*i) );
+}
+function multiplesOf3And5(i = 0, sum = 0) {
+	if (i++ < 333)
+		return multiplesOf3And5(i, sum += getMultiples(i));
+	else
+		return sum;
+}
 
-/******************************/
-
-
-var i = 0, sum = 0;
-
-while (i++ < 333)
-	sum += (3*i) + ( ((i % 3 !== 0) && (i < 200)) * (5*i) );
+multiplesOf3And5();
 
 
+
+function fnFib(cont = 4) {
+	if (cont === 0 || cont === 1) return 1;
+	else if (cont === 2) return 2;
+		else return (cont - 1) + (cont - 2);
+}
+function fib(i = 1, sum = 0) {
+	if (i > 2000) return sum; 
+	else return fib(i+1, sum += fnFib(i));
+}
+
+
+var a = 1, e = 0;
+while (a > 4000) {
+	e += fib(10000 * a);
+}
