@@ -6,8 +6,11 @@ var paths = {
     'src/Core/config.js',
     'src/Core/router.js',
     'src/Core/main.js',
+    '!src/**/Test/*.js',
+    '!src/**/Test/**/*.js',
     'src/Components/**/*.js',
     'src/**/Views/*.js',
+    'src/**/Controllers/*.js',
     'src/**/*.js'
     ],
 
@@ -29,10 +32,11 @@ var paths = {
   },
 
   html: {
-    directives: [
+    components: [
       'src/Components/**/*.html'
     ],
     views: [
+      'src/**/Views/*.html'
     ]
   },
 
@@ -139,8 +143,8 @@ gulp.task('cleanConcatCss', function() {
 
 /*  HTML TASK */
 
-gulp.task('moveDirectives', function () {
-  return gulp.src(paths.html.directives)
+gulp.task('moveComponents', function () {
+  return gulp.src(paths.html.components)
   .pipe(rename(function (path) {  
     path.dirname = "";
     path.basename = "component." + path.basename;
@@ -186,9 +190,9 @@ gulp.task('moveFonts', function () {
 
 gulp.task('default', function() {
   runSequence(
-    ['lint','vendorScripts','devScripts', 'vendorCss', 'devCss', 'moveDirectives', 'moveViews', 'moveFonts'],
+    ['lint','vendorScripts','devScripts', 'vendorCss', 'devCss', 'moveComponents', 'moveViews', 'moveFonts'],
     ['concatJs', 'concatCss'],
-    ['cleanConcatJs', 'cleanConcatCss']
+    ['cleanConcatJs', 'cleanConcatCss', 'test']
     );
 });
 
@@ -214,10 +218,10 @@ gulp.task('watch', function() {
   arrayCss = arrayCss.concat(paths.css.vendor);
 
   var arrayHtml = [];
-  arrayHtml = arrayHtml.concat(paths.html.directives);
+  arrayHtml = arrayHtml.concat(paths.html.components);
   arrayHtml = arrayHtml.concat(paths.html.views);
 
   gulp.watch(paths.js.dev, ['scripts']);
   gulp.watch(arrayCss, ['styles']);
-  gulp.watch(arrayHtml, ['moveDirectives', 'moveViews']);
+  gulp.watch(arrayHtml, ['moveComponents', 'moveViews']);
 });

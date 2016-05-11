@@ -6,6 +6,7 @@
 		Models: {},
 		Collections: {},
 		Views: {},
+		Components: {},
 		Router: {}
 	};
 

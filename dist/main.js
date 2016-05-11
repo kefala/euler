@@ -29,6 +29,7 @@ j+="translateY("+(F[0].clientHeight-item_width)/2+"px)"),i=n[f(p)],i.style[z]=j+
 		Models: {},
 		Collections: {},
 		Views: {},
+		Components: {},
 		Router: {}
 	};
 
@@ -46,19 +47,35 @@ j+="translateY("+(F[0].clientHeight-item_width)/2+"px)"),i=n[f(p)],i.style[z]=j+
 
 	"use strict";
 
+	function printTemplate(template) {
+		if (!(typeof(template) === 'object' || typeof(template) === 'string')) throw "Invalid parameter in function printTemplate";
+
+		var mainBox = document.querySelector(".main-box");
+		
+		if (!mainBox) {
+			mainBox = document.createElement("div");
+			mainBox.classList.add("main-box");	
+		}
+
+		$(mainBox).append(template);
+		$("body").append(mainBox);
+	}
+	
 	App.Router = Backbone.Router.extend({
 		routes: {
-			'': 'index',
-			'facha': 'facha'
+			'': 'home'
 		},
-		index: function(){
-			$(document.body).append("Index route has been called..");
-		},
-		facha: function(){
-			$(document.body).append("facha route has been called..");
+		home: function(){
+			
+			var home = new App.Views.HomeView();
+			rHome = home.render();
+			
+			printTemplate([rHome.el]);
+			
+			//$(document.body).append("Index route has been called..");
 		}
 	});
-	
+
 
 })(App);
 (function (App) {
@@ -75,11 +92,9 @@ j+="translateY("+(F[0].clientHeight-item_width)/2+"px)"),i=n[f(p)],i.style[z]=j+
 
 	var PrincipalMenu = Backbone.View.extend({
 
-		tagName: "menu",
+		tagName: "div",
 
 		className: "principal-menu",
-
-		template: null,
 
 		events: {
 		},
@@ -100,9 +115,56 @@ j+="translateY("+(F[0].clientHeight-item_width)/2+"px)"),i=n[f(p)],i.style[z]=j+
 
 	});
 
-	App.Views.PrincipalMenu = PrincipalMenu;
+	App.Components.PrincipalMenu = PrincipalMenu;
 
 })(window.App);
+(function (MenuComponent) {
+	
+	var Home = Backbone.View.extend({
+
+		tagName: "div",
+
+		className: "home-section",
+
+		events: {
+		},
+
+		initialize: function() {
+		},
+
+		render: function() {
+			var that = this;
+
+			$.get(App.Config.views.templateFolder + '/view.home.html', function (response) {
+				that.$el.html(response);
+			});
+			
+			return that;
+
+		}
+
+	});
+
+	/*
+	function Home() {
+		console.log("asfas");
+
+		var menu = new MenuComponent();
+		var rMenu = menu.render();
+
+		console.log();
+	}
+	*/
+	App.Views.HomeView = Home;
+
+})(window.App.Components.PrincipalMenu); 
+(function (HomeView) {
+	
+	function HomeCtrl(argument) {
+		// body...
+	}
+
+})(window.App.Views.Home); 
 var i = 3, j = 5, sum = 0;
 
 while (j < 1000) {
@@ -147,13 +209,3 @@ while (i++ < 333)
 	sum += (3*i) + ( ((i % 3 !== 0) && (i < 200)) * (5*i) );
 
 
-
-(function (MenuComponent) {
-	
-	
-	var menu = new App.Views.PrincipalMenu();
-	var a = menu.render();
-	console.log(a.el);
-	$("body").append(a.el);
-
-})(window.App.Views.PrincipalMenu); 

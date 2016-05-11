@@ -2,18 +2,34 @@
 
 	"use strict";
 
+	function printTemplate(template) {
+		if (!(typeof(template) === 'object' || typeof(template) === 'string')) throw "Invalid parameter in function printTemplate";
+
+		var mainBox = document.querySelector(".main-box");
+		
+		if (!mainBox) {
+			mainBox = document.createElement("div");
+			mainBox.classList.add("main-box");	
+		}
+
+		$(mainBox).append(template);
+		$("body").append(mainBox);
+	}
+	
 	App.Router = Backbone.Router.extend({
 		routes: {
-			'': 'index',
-			'facha': 'facha'
+			'': 'home'
 		},
-		index: function(){
-			$(document.body).append("Index route has been called..");
-		},
-		facha: function(){
-			$(document.body).append("facha route has been called..");
+		home: function(){
+			
+			var home = new App.Views.HomeView();
+			rHome = home.render();
+			
+			printTemplate([rHome.el]);
+			
+			//$(document.body).append("Index route has been called..");
 		}
 	});
-	
+
 
 })(App);
