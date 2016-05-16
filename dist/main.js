@@ -68,13 +68,10 @@ j+="translateY("+(F[0].clientHeight-item_width)/2+"px)"),i=n[f(p)],i.style[z]=j+
 			'': 'home'
 		},
 		home: function(){
-			
 			var home = new App.Views.HomeView();
-			rHome = home.render();
+			var rHome = home.render();
 			
-			printTemplate([rHome.el]);
-			
-			//$(document.body).append("Index route has been called..");
+			printTemplate([rHome.el]);			
 		}
 	});
 
@@ -108,6 +105,7 @@ j+="translateY("+(F[0].clientHeight-item_width)/2+"px)"),i=n[f(p)],i.style[z]=j+
 			var that = this;
 
 			$.get(App.Config.views.templateFolder + '/component.menu.html', function (response) {
+			  	$(".button-collapse").sideNav('show');
 				that.$el.html(response);
 			});
 			
@@ -126,12 +124,17 @@ j+="translateY("+(F[0].clientHeight-item_width)/2+"px)"),i=n[f(p)],i.style[z]=j+
 
 		tagName: "div",
 
-		className: "home-section",
+		className: "home-section view-kefala",
 
 		events: {
 		},
 
+		components: [],
+
 		initialize: function() {
+			var menu = new MenuComponent();
+			var rMenu = menu.render();
+			this.components.push(rMenu);
 		},
 
 		render: function() {
@@ -139,27 +142,23 @@ j+="translateY("+(F[0].clientHeight-item_width)/2+"px)"),i=n[f(p)],i.style[z]=j+
 
 			$.get(App.Config.views.templateFolder + '/view.home.html', function (response) {
 				that.$el.html(response);
+				$('.menu-box').append(that.components[0].el);
 			});
 			
 			return that;
-
 		}
-
 	});
 
-	/*
-	function Home() {
-		console.log("asfas");
-
-		var menu = new MenuComponent();
-		var rMenu = menu.render();
-
-		console.log();
-	}
-	*/
 	App.Views.HomeView = Home;
 
 })(window.App.Components.PrincipalMenu); 
+(function (HomeView) {
+	
+	function HomeCtrl(argument) {
+		// body...
+	}
+
+})(window.App.Views.Home); 
 var i = 3, j = 5, sum = 0;
 
 while (j < 1000) {
@@ -203,11 +202,3 @@ var i = 0, sum = 0;
 while (i++ < 333)
 	sum += (3*i) + ( ((i % 3 !== 0) && (i < 200)) * (5*i) );
 
-
-(function (HomeView) {
-	
-	function HomeCtrl(argument) {
-		// body...
-	}
-
-})(window.App.Views.Home); 
