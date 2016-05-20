@@ -18,6 +18,41 @@ multiplesOf3And5();
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function fnFib(cont = 4) {
 	if (cont === 0 || cont === 1) return 1;
 	else if (cont === 2) return 2;
@@ -29,7 +64,51 @@ function fib(i = 1, sum = 0) {
 }
 
 
-var a = 1, e = 0;
+
+
+
+
+
+//var a = 1, e = 0;
+/*
 while (a > 4000) {
 	e += fib(10000 * a);
 }
+*/
+
+
+function fibo(n = 0) {
+	if ( n === 0 || n === 1)
+		return 1; 
+	else 
+		return fibo(n - 1) + fibo(n - 2);
+}
+
+function fn() {
+	i = 0, suma = 0;
+	while (i <= 10) {
+		suma += fibo(i);
+		i++;
+	}
+	return suma;
+}
+
+fn();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
