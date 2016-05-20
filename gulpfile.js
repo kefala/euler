@@ -25,6 +25,7 @@ var paths = {
 
   css: {
     dev: [
+      'src/Core/main.scss',
     ],
     vendor: [
     'node_modules/materialize-css/dist/css/materialize.min.css',

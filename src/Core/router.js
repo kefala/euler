@@ -21,13 +21,10 @@
 			'': 'home'
 		},
 		home: function(){
-			
 			var home = new App.Views.HomeView();
 			var rHome = home.render();
 			
-			printTemplate([rHome.el]);
-			
-			//$(document.body).append("Index route has been called..");
+			printTemplate([rHome.el]);			
 		}
 	});
 

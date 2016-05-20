@@ -16,6 +16,7 @@
 			var that = this;
 
 			$.get(App.Config.views.templateFolder + '/component.menu.html', function (response) {
+			  	$(".button-collapse").sideNav('show');
 				that.$el.html(response);
 			});
 			

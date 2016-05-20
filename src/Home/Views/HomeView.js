@@ -4,12 +4,17 @@
 
 		tagName: "div",
 
-		className: "home-section",
+		className: "home-section view-kefala",
 
 		events: {
 		},
 
+		components: [],
+
 		initialize: function() {
+			var menu = new MenuComponent();
+			var rMenu = menu.render();
+			this.components.push(rMenu);
 		},
 
 		render: function() {
@@ -17,24 +22,13 @@
 
 			$.get(App.Config.views.templateFolder + '/view.home.html', function (response) {
 				that.$el.html(response);
+				$('.menu-box').append(that.components[0].el);
 			});
 			
 			return that;
-
 		}
-
 	});
 
-	/*
-	function Home() {
-		console.log("asfas");
-
-		var menu = new MenuComponent();
-		var rMenu = menu.render();
-
-		console.log();
-	}
-	*/
 	App.Views.HomeView = Home;
 
 })(window.App.Components.PrincipalMenu); 
