@@ -9,5 +9,7 @@
 		Components: {},
 		Router: {}
 	};
+	
+	console.log("ASfas");
 
 })();
