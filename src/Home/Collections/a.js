@@ -106,9 +106,23 @@ fn();
 
 
 
+function ganador(a,b,c,d) {
+	resultado = ([parseInt(a) + parseInt(b) + parseInt(c) + parseInt(d)] >= 3) ? 1 : 0;
+	
+	return resultado;
+	
+}
 
+function empate(a,b,c,d) {
+	return parseInt(parseInt(a*b)+parseInt(c*d)) + parseInt(parseInt(a*c)+parseInt(b*d)) + parseInt(parseInt(a*d) + parseInt(b*c));
+}
 
+function init (a,b,c,d) {
+	x = empate(a,b,c,d);
 
+	if (x) {
+		resultado = (parseInt(x) * parseInt(d)) + !x * ganador(a, b, c, d);
+	}
 
-
-
+	return (parseInt(x) * parseInt(d)) + !x * ganador(a, b, c, d);
+}
