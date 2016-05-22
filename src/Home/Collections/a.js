@@ -39,9 +39,6 @@ function fn() {
 fn();
 
 
-<<<<<<< HEAD
-
-
 
 
 
@@ -70,7 +67,4 @@ function init (a,b,c,d) {
 
 	return (parseInt(x) * parseInt(d)) + !x * ganador(a, b, c, d);
 }
-=======
 */
-
->>>>>>> 87a67d0300858b51162178b37205bb1f9f1bab60
