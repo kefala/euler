@@ -68,3 +68,75 @@ function init (a,b,c,d) {
 	return (parseInt(x) * parseInt(d)) + !x * ganador(a, b, c, d);
 }
 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+function fibo(n = 0) {
+	if (n === 0 || n === 1)
+		return 1;
+	else
+		return fibo(n - 1) + fibo(n - 2);
+}
+
+function fn() {
+	var i = 0, suma = 0;
+	while (i <= 40) {
+		suma += fibo(i);
+		i++;
+	}
+	return suma;
+}
+
+fn();
+*/
+/*
+var i = 0, suma = 0;
+var actual = 1, anterior = 0, siguiente = 0;
+
+
+while ((actual + anterior) < 4000000) {
+	siguiente = actual + anterior;
+	
+	suma += (siguiente % 2 === 0)? siguiente :0;
+	anterior = actual;
+	actual = siguiente;
+}
+
+console.log(suma);
+
+
+
+	4613732
+*/
+
+
+

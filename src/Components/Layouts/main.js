@@ -23,6 +23,9 @@
 
 		render: function() {			
 			this.menu.render('#box-side-bar');
+			
+			$(".main-box").html(this.el);
+			
 			return this;
 		}
 

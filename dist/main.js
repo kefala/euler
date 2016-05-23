@@ -3492,6 +3492,7 @@ j+="translateY("+(F[0].clientHeight-item_width)/2+"px)"),i=n[f(p)],i.style[z]=j+
 	window.App = {
 		Models: {},
 		Collections: {},
+		Controllers: {},
 		Views: {},
 		Components: {},
 		Router: {}
@@ -3510,37 +3511,26 @@ j+="translateY("+(F[0].clientHeight-item_width)/2+"px)"),i=n[f(p)],i.style[z]=j+
 (function (App) {
 
 	"use strict";
+	var mainBox = document.querySelector(".main-box");
 
-	function printTemplate(template) {
-		if (!(typeof(template) === 'object' || typeof(template) === 'string')) throw "Invalid parameter in function printTemplate";
-
-		var mainBox = document.querySelector(".main-box");
-		
-		if (!mainBox) {
-			mainBox = document.createElement("div");
-			mainBox.classList.add("main-box");	
-		}
-
-		$(mainBox).append(template);
+	if (!mainBox) {
+		mainBox = document.createElement("div");
+		mainBox.classList.add("main-box");
 		$("body").append(mainBox);
 	}
-	
+
 	App.Router = Backbone.Router.extend({
 		routes: {
 			'': 'home',
-			'problem-one': 'problemOne'
+			'problem/:id': 'problem'
 		},
-		home: function(){
+		home: function () {
 			var home = new App.Views.HomeView();
 			var rHome = home.render();
-			
-			printTemplate([rHome.el]);			
 		},
-		problemOne: function(){
-			var problemOne = new App.Views.ProblemOne();
-			var rProblemOne = problemOne.render();
-			
-			printTemplate([rProblemOne.el]);			
+		problem: function (id) { 
+			var problem = new App.Views.Problem(id);
+			var rProblem = problem.render();
 		}
 	});
 
@@ -3581,6 +3571,9 @@ j+="translateY("+(F[0].clientHeight-item_width)/2+"px)"),i=n[f(p)],i.style[z]=j+
 
 		render: function() {			
 			this.menu.render('#box-side-bar');
+			
+			$(".main-box").html(this.el);
+			
 			return this;
 		}
 
@@ -3590,7 +3583,7 @@ j+="translateY("+(F[0].clientHeight-item_width)/2+"px)"),i=n[f(p)],i.style[z]=j+
 
 })(window.App);
 (function (App) {
-	
+
 	"use strict";
 
 	var PrincipalMenu = Backbone.View.extend({
@@ -3602,17 +3595,60 @@ j+="translateY("+(F[0].clientHeight-item_width)/2+"px)"),i=n[f(p)],i.style[z]=j+
 		events: {
 		},
 
-		initialize: function() {
-			var that = this;
-			
+		initialize: function () {
+		},
+		getRoutes: function () {
+			var routes = [
+				{ number: "About", url: "", template: "", type: "about" },
+				{ number: 1, url: "problem/1", template: "", type: "problem" },
+				{ number: 2, url: "problem/2", template: "", type: "problem" }
+			];
+			return routes;
+		},
+				
+		pushMenu: function (selector) {
+			var output,
+				routes = this.getRoutes(),
+				that = this;
+
+
+			$.get(App.Config.views.templateFolder + '/component.menu.html', function (response) {
+				output = Mustache.render(response, {
+					routes: routes,
+					"caption": function () {
+						var caption;
+						if (this.type === "problem") caption = "Problem " + this.number;
+						if (this.type === "about") caption = this.number;
+						return caption;
+					},
+					"slug": function () {
+						return "#" + this.url;
+					},
+					"isActive": function () {
+						var ret = false;
+						if (this.type === "about" && location.hash === "") ret = true;
+						if (this.type === "about" && location.hash === "#") ret = true;
+						if (this.type === "problem" && location.hash === "#problem/" + this.number) ret = true;
+						return ret;
+					}
+				});
+
+				$(selector).append(output);
+				$(selector).find('.collection-item').click(function (e) {
+					$(selector).find('.collection-item').removeClass('active');
+					$(this).addClass('active');
+				}); 
+
+			});
 		},
 
-		render: function(selector) {
-			$.get(App.Config.views.templateFolder + '/component.menu.html', function (response) {
-				$(selector).append(response);
-			});
-			
-			
+		render: function (selector) {
+			var that = this;
+
+			if (!$(selector).find("#menu-content").length) {
+				this.pushMenu(selector);
+			}
+
 			return this;
 		}
 
@@ -3622,7 +3658,7 @@ j+="translateY("+(F[0].clientHeight-item_width)/2+"px)"),i=n[f(p)],i.style[z]=j+
 
 })(window.App);
 (function (MainLayout) {
-	
+
 	"use strict";
 
 	var Home = Backbone.View.extend({
@@ -3637,20 +3673,18 @@ j+="translateY("+(F[0].clientHeight-item_width)/2+"px)"),i=n[f(p)],i.style[z]=j+
 		components: [],
 
 		initialize: function () {
-			var that = this;
-			that.main = new MainLayout();
+			if (!$(".main-layout").length) {
+				var main = new MainLayout();
+				var rMain = main.render();
+			}
 		},
 
 		render: function () {
-			var that = this;
-			var rMain = that.main.render();
-			that.$el.html(rMain.el);
-
 			$.get(App.Config.views.templateFolder + '/view.home.html', function (response) {
-				$(that.el).find('#box-content').append(response);
+				$(".main-layout").find('#box-content').html(response);
 			});
 
-			return that;
+			return this;
 		}
 	});
 
@@ -3658,7 +3692,7 @@ j+="translateY("+(F[0].clientHeight-item_width)/2+"px)"),i=n[f(p)],i.style[z]=j+
 
 })(window.App.Components.MainLayout); 
 (function (MainLayout) {
-	
+
 	"use strict";
 
 	var Problem = Backbone.View.extend({
@@ -3670,27 +3704,74 @@ j+="translateY("+(F[0].clientHeight-item_width)/2+"px)"),i=n[f(p)],i.style[z]=j+
 		events: {
 		},
 
-		initialize: function () {
-			var that = this;
-			that.main = new MainLayout();
+		initialize: function (problemId) {
+			if (!$(".main-layout").length) {
+				var main = new MainLayout();
+				var rMain = main.render();
+			}
+			var ProblemCtrl = new window.App.Controllers.Problem();
+			var problems = ProblemCtrl.getAll();
+			this.problem = problems.get(problemId);
 		},
 
 		render: function () {
-			var that = this;
-			var rMain = that.main.render();
-			that.$el.html(rMain.el);
-
-			$.get(App.Config.views.templateFolder + '/view.problemOne.html', function (response) {
-				$(that.el).find('#box-content').append(response);
+			var output, that = this;
+			console.log(that.problem);
+			$.get(App.Config.views.templateFolder + '/view.problem.html', function (response) {
+				var output = Mustache.render(response, {
+					title: that.problem.get('title')
+				});
+				console.log(output);
+				$(".main-layout").find('#box-content').html(output);
 			});
 
-			return that;
+			return this;
+		},
+		setProblem: function () {
+
 		}
 	});
 
-	App.Views.ProblemOne = Problem;
+	App.Views.Problem = Problem;
 
 })(window.App.Components.MainLayout); 
+(function () {
+
+    "use strict";
+
+    var dummieCollection = [
+        {
+            title: 'Problema uno',
+            description: 'Describir el problema',
+            id: 1,
+            template: 'view.problema-uno.html'
+        },
+        {
+            title: 'Problema dos',
+            description: 'Describir el problema',
+            id: 2,
+            template: 'view.problema-dps.html'
+        }
+    ];
+
+    function Problem() {
+
+        this.getAll = function () {
+            var problems = new App.Collections.Problem(dummieCollection);
+            return problems;
+        };
+
+        return this;
+    }
+
+
+
+
+    window.App.Controllers.Problem = Problem;
+
+
+
+})(); 
 (function (HomeView) {
 	
 	"use strict";
@@ -3770,3 +3851,94 @@ function init (a,b,c,d) {
 	return (parseInt(x) * parseInt(d)) + !x * ganador(a, b, c, d);
 }
 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+function fibo(n = 0) {
+	if (n === 0 || n === 1)
+		return 1;
+	else
+		return fibo(n - 1) + fibo(n - 2);
+}
+
+function fn() {
+	var i = 0, suma = 0;
+	while (i <= 40) {
+		suma += fibo(i);
+		i++;
+	}
+	return suma;
+}
+
+fn();
+*/
+/*
+var i = 0, suma = 0;
+var actual = 1, anterior = 0, siguiente = 0;
+
+
+while ((actual + anterior) < 4000000) {
+	siguiente = actual + anterior;
+	
+	suma += (siguiente % 2 === 0)? siguiente :0;
+	anterior = actual;
+	actual = siguiente;
+}
+
+console.log(suma);
+
+
+
+	4613732
+*/
+
+
+
+
+(function () {
+    var Problem = Backbone.Model.extend({
+        defaults: {
+            title: 'Problema Uno',
+            description: 'Describir el problema',
+            id: 1,
+            template: 'view.problema-uno.html'
+        }
+    });
+
+    var ProblemCollection = Backbone.Collection.extend({
+        model: Problem
+    });
+    
+    App.Collections.Problem = ProblemCollection;
+    App.Models.Problem = Problem;   
+
+})();

@@ -1,5 +1,5 @@
 (function (MainLayout) {
-	
+
 	"use strict";
 
 	var Home = Backbone.View.extend({
@@ -14,20 +14,18 @@
 		components: [],
 
 		initialize: function () {
-			var that = this;
-			that.main = new MainLayout();
+			if (!$(".main-layout").length) {
+				var main = new MainLayout();
+				var rMain = main.render();
+			}
 		},
 
 		render: function () {
-			var that = this;
-			var rMain = that.main.render();
-			that.$el.html(rMain.el);
-
 			$.get(App.Config.views.templateFolder + '/view.home.html', function (response) {
-				$(that.el).find('#box-content').append(response);
+				$(".main-layout").find('#box-content').html(response);
 			});
 
-			return that;
+			return this;
 		}
 	});
 

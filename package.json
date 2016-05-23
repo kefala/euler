@@ -41,6 +41,7 @@
     "karma-jasmine": "^0.3.8",
     "karma-phantomjs-launcher": "^1.0.0",
     "materialize-css": "^0.97.6",
+    "mustache": "^2.2.1",
     "phantomjs-prebuilt": "^2.1.7",
     "run-sequence": "latest",
     "ui-router": "^1.0.0-alpha0",
