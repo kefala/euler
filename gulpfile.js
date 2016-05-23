@@ -17,8 +17,8 @@ var paths = {
     vendor : [
     'node_modules/jquery/dist/jquery.min.js',
     'node_modules/mustache/mustache.min.js',
-    'node_modules/underscore/underscore-min.js',
-    'node_modules/backbone/backbone-min.js',
+    'node_modules/underscore/underscore.js',
+    'node_modules/backbone/backbone.js',
     'node_modules/materialize-css/dist/js/materialize.min.js'
     ]
   },

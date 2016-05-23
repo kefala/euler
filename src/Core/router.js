@@ -18,13 +18,20 @@
 	
 	App.Router = Backbone.Router.extend({
 		routes: {
-			'': 'home'
+			'': 'home',
+			'problem-one': 'problemOne'
 		},
 		home: function(){
 			var home = new App.Views.HomeView();
 			var rHome = home.render();
 			
 			printTemplate([rHome.el]);			
+		},
+		problemOne: function(){
+			var problemOne = new App.Views.ProblemOne();
+			var rProblemOne = problemOne.render();
+			
+			printTemplate([rProblemOne.el]);			
 		}
 	});
 
