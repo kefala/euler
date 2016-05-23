@@ -1,4 +1,6 @@
 (function (App) {
+	
+	"use strict";
 
 	var MainLayout = Backbone.View.extend({
 
@@ -14,9 +16,13 @@
 			$.get(App.Config.views.templateFolder + '/component.main.html', function (response) {
 				that.$el.html(response);
 			});
+			
+			this.menu = new App.Components.PrincipalMenu();
+			
 		},
 
-		render: function() {
+		render: function() {			
+			this.menu.render('#box-side-bar');
 			return this;
 		}
 

@@ -1,7 +1,7 @@
 (function (App) {
 	var config = {
 		views: {
-			templateFolder: 'miame/'
+			templateFolder: '/miame'
 		}
 	};
 

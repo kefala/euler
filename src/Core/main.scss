@@ -1,34 +1,6 @@
-* {
-	margin: 0;
-	padding: 0;
+html, body, .main-box, .box-container, .main-layout {
+	height: 100%;	
 }
-.main-box {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	.view-kefala {
-		height: 100%;
-
-	}
-}
-.box-layout {
-	height: calc(100% - 64px);
+html {
 	overflow: hidden;
-	.side-bar {
-		position: relative;
-		height: 100%;
-		overflow: auto;
-		width: 20%;
-		display: inline-block;
-	}
-	.content {
-		position: relative;
-		height: 100%;
-		overflow: auto;
-		width: 80%;
-		display: inline-block;
-	}
-
 }

@@ -1,7 +1,9 @@
 (function (HomeView) {
 	
+	"use strict";
+
 	function HomeCtrl(argument) {
-		// body...
+		console.log("Ctrl");
 	}
 
 })(window.App.Views.Home); 

@@ -1,4 +1,6 @@
 (function (App) {
+	
+	"use strict";
 
 	var PrincipalMenu = Backbone.View.extend({
 
@@ -10,18 +12,17 @@
 		},
 
 		initialize: function() {
+			var that = this;
+			
 		},
 
-		render: function() {
-			var that = this;
-
+		render: function(selector) {
 			$.get(App.Config.views.templateFolder + '/component.menu.html', function (response) {
-			  	$(".button-collapse").sideNav('show');
-				that.$el.html(response);
+				$(selector).append(response);
 			});
 			
-			return that;
-
+			
+			return this;
 		}
 
 	});
