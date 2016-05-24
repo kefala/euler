@@ -22,14 +22,20 @@
 		},
 
 		render: function () {
-			var output, that = this;
-			console.log(that.problem);
+			var output,
+				that = this;
+			
 			$.get(App.Config.views.templateFolder + '/view.problem.html', function (response) {
 				var output = Mustache.render(response, {
-					title: that.problem.get('title')
+					title: that.problem.get('title'),
+					description: that.problem.get('description')
 				});
-				console.log(output);
 				$(".main-layout").find('#box-content').html(output);
+				
+				$.get(App.Config.views.templateFolder + that.problem.get('template'), function (response) {
+					$(".main-layout").find('.problem').html(response);
+				});
+				
 			});
 
 			return this;

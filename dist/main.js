@@ -3547,42 +3547,6 @@ j+="translateY("+(F[0].clientHeight-item_width)/2+"px)"),i=n[f(p)],i.style[z]=j+
 
 })(App);
 (function (App) {
-	
-	"use strict";
-
-	var MainLayout = Backbone.View.extend({
-
-		tagName: "main",
-
-		className: "main-layout",
-
-		events: {
-		},
-
-		initialize: function() {
-			var that = this;
-			$.get(App.Config.views.templateFolder + '/component.main.html', function (response) {
-				that.$el.html(response);
-			});
-			
-			this.menu = new App.Components.PrincipalMenu();
-			
-		},
-
-		render: function() {			
-			this.menu.render('#box-side-bar');
-			
-			$(".main-box").html(this.el);
-			
-			return this;
-		}
-
-	});
-
-	App.Components.MainLayout = MainLayout;
-
-})(window.App);
-(function (App) {
 
 	"use strict";
 
@@ -3600,8 +3564,7 @@ j+="translateY("+(F[0].clientHeight-item_width)/2+"px)"),i=n[f(p)],i.style[z]=j+
 		getRoutes: function () {
 			var routes = [
 				{ number: "Propuesta", url: "", template: "", type: "about" },
-				{ number: 1, url: "problem/1", template: "", type: "problem" },
-				{ number: 2, url: "problem/2", template: "", type: "problem" }
+				{ number: 1, url: "problem/1", template: "", type: "problem" }
 			];
 			return routes;
 		},
@@ -3654,6 +3617,42 @@ j+="translateY("+(F[0].clientHeight-item_width)/2+"px)"),i=n[f(p)],i.style[z]=j+
 	});
 
 	App.Components.PrincipalMenu = PrincipalMenu;
+
+})(window.App);
+(function (App) {
+	
+	"use strict";
+
+	var MainLayout = Backbone.View.extend({
+
+		tagName: "main",
+
+		className: "main-layout",
+
+		events: {
+		},
+
+		initialize: function() {
+			var that = this;
+			$.get(App.Config.views.templateFolder + '/component.main.html', function (response) {
+				that.$el.html(response);
+			});
+			
+			this.menu = new App.Components.PrincipalMenu();
+			
+		},
+
+		render: function() {			
+			this.menu.render('#box-side-bar');
+			
+			$(".main-box").html(this.el);
+			
+			return this;
+		}
+
+	});
+
+	App.Components.MainLayout = MainLayout;
 
 })(window.App);
 (function (MainLayout) {
@@ -3714,14 +3713,20 @@ j+="translateY("+(F[0].clientHeight-item_width)/2+"px)"),i=n[f(p)],i.style[z]=j+
 		},
 
 		render: function () {
-			var output, that = this;
-			console.log(that.problem);
+			var output,
+				that = this;
+			
 			$.get(App.Config.views.templateFolder + '/view.problem.html', function (response) {
 				var output = Mustache.render(response, {
-					title: that.problem.get('title')
+					title: that.problem.get('title'),
+					description: that.problem.get('description')
 				});
-				console.log(output);
 				$(".main-layout").find('#box-content').html(output);
+				
+				$.get(App.Config.views.templateFolder + that.problem.get('template'), function (response) {
+					$(".main-layout").find('.problem').html(response);
+				});
+				
 			});
 
 			return this;
@@ -3749,21 +3754,14 @@ j+="translateY("+(F[0].clientHeight-item_width)/2+"px)"),i=n[f(p)],i.style[z]=j+
 
     var dummieCollection = [
         {
-            title: 'Problema uno',
-            description: 'Describir el problema',
+            title: 'Múltiplos de 3 o 5',
+            description: 'Todos los números naturales menores que 10 que son múltimos de 3 o 5 son 3, 5, 6 y 9. La suma de ellos es 23. Encontrar la suma de todos los multimos de 3 o 5 menores a mil, considerando sumar una vez sola los común múltiplos.',
             id: 1,
-            template: 'view.problema-uno.html'
-        },
-        {
-            title: 'Problema dos',
-            description: 'Describir el problema',
-            id: 2,
-            template: 'view.problema-dps.html'
+            template: '/view.problem-one.html'
         }
     ];
 
     function Problem() {
-
         this.getAll = function () {
             var problems = new App.Collections.Problem(dummieCollection);
             return problems;
@@ -3772,12 +3770,7 @@ j+="translateY("+(F[0].clientHeight-item_width)/2+"px)"),i=n[f(p)],i.style[z]=j+
         return this;
     }
 
-
-
-
     window.App.Controllers.Problem = Problem;
-
-
 
 })(); 
 /*
@@ -3785,6 +3778,7 @@ var i = 0, sum = 0;
 
 while (i++ < 333)
 	sum += (3*i) + ( ((5*i) % 3 !== 0 && i < 200) * (5*i) );
+
 
 function getMultiples(i) {
 	return (3*i) + ( ((5*i) % 3 !== 0 && i < 200) * (5*i) );

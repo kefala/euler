@@ -1,0 +1,55 @@
+<p>Tenemos un número finito de números a sumar, el primer gran error que se suele cometer es recorrer los mil número en busca de los múltiplos de 3 y 5. Para ello solo recorreremos los múltiplos directamente.</p><p>La cantidad de múltiplos de 3 en 1000 son 333 y de 5 en 1000 son 200</p><pre class="prettyprint lang-javascript linemus">
+var i = 0, j = 0, suma = 0;
+
+while (j < 200) {
+    suma = suma + (i * 3) + (j * 5); /*Vamos sumando solamente los múltiplos, el 1000 no está dentro del conjunto*/
+    i++;
+    j++; 
+} 
+
+while (i &lt= 333) { /*Continuamos con los múltiplos de 3 que quedan sumar*/
+    suma = suma + (i * 3);
+    i++;
+}
+
+console.log(suma);
+</pre><p>Ya tenemos sumados todos los múltiplos de 3 y 5 menores que mil.</p><p>Nos queda excluir los múltiplos que tienen en común <i>(por ejemplo el 15, 30, etc)</i></p><pre class="prettyprint lang-javascript linenums">
+var i = 0, j = 0, suma = 0;
+
+while (j < 200) {
+	if ((j * 5) % 3 === 0) {
+		suma = suma + (i * 3);
+	} else {
+		suma = suma + (i * 3) + (j * 5);
+	}
+	i++;
+	j++;
+}
+
+while (i &lt= 333) { /*Continuamos con los múltiplos de 3 que quedan sumar*/
+	suma = suma + (i * 3);
+	i++;
+}
+
+console.log(suma); /*suma = 233168*/
+</pre><p class=flow-text>Llegamos a la respuesta!</p><p>La respuesta es: <b>233168</b></p><p>Vamos a mejorar el script. Siempre va a ser más óptimo un ciclo que dos.</p><pre class="prettyprint lang-javascript linenums">
+var i = 0, suma = 0;
+
+while (i &lt= 333) {
+    if ((i * 5) % 3 === 0 || i &gt= 200) {
+        suma = suma + (i * 3);
+    } else {
+        suma = suma + (i * 3) + (i * 5);
+    }
+    i++;
+}
+
+console.log(suma); /*suma = 233168*/
+</pre><p>Y con un poco más de esfuerzo llegamos a esto:</p><pre class="prettyprint lang-javascript linenums">
+var i = 0, suma = 0;
+
+while (i++ &lt 333)
+	suma += (3*i) + ( ((5*i) % 3 !== 0 && i < 200) * (5*i) ); /*Si la condicion ((5*i) % 3 !== 0 && i < 200) es falsa retorna 0 si es verdadera 1*/
+
+console.log(suma); /*suma = 233168*/
+</pre>

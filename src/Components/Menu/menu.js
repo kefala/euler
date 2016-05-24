@@ -16,8 +16,7 @@
 		getRoutes: function () {
 			var routes = [
 				{ number: "Propuesta", url: "", template: "", type: "about" },
-				{ number: 1, url: "problem/1", template: "", type: "problem" },
-				{ number: 2, url: "problem/2", template: "", type: "problem" }
+				{ number: 1, url: "problem/1", template: "", type: "problem" }
 			];
 			return routes;
 		},

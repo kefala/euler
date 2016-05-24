@@ -4,3 +4,7 @@ html, body, .main-box, .box-container, .main-layout {
 html {
 	overflow: hidden;
 }
+
+#box-content {
+	overflow: auto;
+}
