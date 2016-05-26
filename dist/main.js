@@ -3547,6 +3547,42 @@ j+="translateY("+(F[0].clientHeight-item_width)/2+"px)"),i=n[f(p)],i.style[z]=j+
 
 })(App);
 (function (App) {
+	
+	"use strict";
+
+	var MainLayout = Backbone.View.extend({
+
+		tagName: "main",
+
+		className: "main-layout",
+
+		events: {
+		},
+
+		initialize: function() {
+			var that = this;
+			$.get(App.Config.views.templateFolder + '/component.main.html', function (response) {
+				that.$el.html(response);
+			});
+			
+			this.menu = new App.Components.PrincipalMenu();
+			
+		},
+
+		render: function() {			
+			this.menu.render('#box-side-bar');
+			
+			$(".main-box").html(this.el);
+			
+			return this;
+		}
+
+	});
+
+	App.Components.MainLayout = MainLayout;
+
+})(window.App);
+(function (App) {
 
 	"use strict";
 
@@ -3590,7 +3626,7 @@ j+="translateY("+(F[0].clientHeight-item_width)/2+"px)"),i=n[f(p)],i.style[z]=j+
 						var ret = false;
 						if (this.type === "about" && location.hash === "") ret = true;
 						if (this.type === "about" && location.hash === "#") ret = true;
-						if (this.type === "problem" && location.hash === "#problema/" + this.number) ret = true;
+						if (this.type === "problem" && location.hash === "#problem/" + this.number) ret = true;
 						return ret;
 					}
 				});
@@ -3617,42 +3653,6 @@ j+="translateY("+(F[0].clientHeight-item_width)/2+"px)"),i=n[f(p)],i.style[z]=j+
 	});
 
 	App.Components.PrincipalMenu = PrincipalMenu;
-
-})(window.App);
-(function (App) {
-	
-	"use strict";
-
-	var MainLayout = Backbone.View.extend({
-
-		tagName: "main",
-
-		className: "main-layout",
-
-		events: {
-		},
-
-		initialize: function() {
-			var that = this;
-			$.get(App.Config.views.templateFolder + '/component.main.html', function (response) {
-				that.$el.html(response);
-			});
-			
-			this.menu = new App.Components.PrincipalMenu();
-			
-		},
-
-		render: function() {			
-			this.menu.render('#box-side-bar');
-			
-			$(".main-box").html(this.el);
-			
-			return this;
-		}
-
-	});
-
-	App.Components.MainLayout = MainLayout;
 
 })(window.App);
 (function (MainLayout) {

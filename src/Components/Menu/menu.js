@@ -42,7 +42,7 @@
 						var ret = false;
 						if (this.type === "about" && location.hash === "") ret = true;
 						if (this.type === "about" && location.hash === "#") ret = true;
-						if (this.type === "problem" && location.hash === "#problema/" + this.number) ret = true;
+						if (this.type === "problem" && location.hash === "#problem/" + this.number) ret = true;
 						return ret;
 					}
 				});
