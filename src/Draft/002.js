@@ -17,3 +17,12 @@ while (suma < 4000000) {
     o++;
 }
 console.log(suma);
+
+
+
+/***********/
+function fibo(numero, actual, anterior, siguiente) {
+    if (actual++ < numero) return fibo();
+    return siguiente; 
+}
+fn();
