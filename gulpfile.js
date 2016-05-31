@@ -8,6 +8,7 @@ var paths = {
     'src/Core/main.js',
     '!src/**/Test/*.js',
     '!src/**/Test/**/*.js',
+    '!src/Draft/**/*.js',
     'src/Components/**/*.js',
     'src/**/Views/*.js',
     'src/**/Controllers/*.js',
