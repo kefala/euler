@@ -1,19 +1,19 @@
-function fibo(n = 0) {
-	if ( n === 0 || n === 1)
-		return 1; 
-	else 
-		return fibo(n - 1) + fibo(n - 2);
+//4613732
+
+
+function fibonacci(numero) {
+    var i = 1, anterior = 1, siguiente = 1, tmp;
+    while (i++ < numero) {
+        tmp = siguiente;
+        siguiente = anterior + siguiente;
+        anterior = tmp;
+    }
+    return siguiente;
 }
 
-function fn() {
-	i = 0, suma = 0;
-	while (i <= 10) {
-		suma += fibo(i);
-		i++;
-	}
-	return suma;
+var o = 1, suma = 0;
+while (suma < 4000000) {
+    suma += ((fibonacci(o) % 2) == 0) ? fibonacci(o) : 0;
+    o++;
 }
-
-fn();
-
-
+console.log(suma);

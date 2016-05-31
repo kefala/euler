@@ -1,6 +1,7 @@
 <p>Tenemos un número finito de números a sumar, el primer gran error que se suele cometer es recorrer los mil número en busca de los múltiplos de 3 y 5. Para ello solo recorreremos los múltiplos directamente.</p>
 <p>La cantidad de múltiplos de 3 en 1000 son 333 y de 5 en 1000 son 200</p>
-<!----------------------------------------------------------->
+<!--------------------------------------------------------- -->
+
 <pre class="prettyprint lang-javascript linemus">
 var i = 0, j = 0, suma = 0;
 
@@ -18,10 +19,10 @@ while (i &lt= 333) { /*Continuamos con los múltiplos de 3 que quedan sumar*/
 console.log(suma);
 </pre>
 
-<!----------------------------------------------------------->
+<!--------------------------------------------------------- -->
 <p>Ya tenemos sumados todos los múltiplos de 3 y 5 menores que mil.</p>
 <p>Nos queda excluir los múltiplos que tienen en común <i>(por ejemplo el 15, 30, etc)</i></p>
-<!----------------------------------------------------------->
+<!--------------------------------------------------------- -->
 
 <pre class="prettyprint lang-javascript linenums">
 var i = 0, j = 0, suma = 0;
@@ -43,12 +44,12 @@ while (i &lt= 333) { /*Continuamos con los múltiplos de 3 que quedan sumar*/
 
 console.log(suma); /*suma = 233168*/
 </pre>
-<!----------------------------------------------------------->
+<!--------------------------------------------------------- -->
 <p class="flow-text">Llegamos a la respuesta!</p>
 <p>La respuesta es: <b>233168</b></p>
 <p>Vamos a mejorar el script. Siempre va a ser más óptimo un ciclo que dos.</p>
 
-<!----------------------------------------------------------->
+<!--------------------------------------------------------- -->
 
 <pre class="prettyprint lang-javascript linenums">
 var i = 0, suma = 0;
@@ -64,9 +65,9 @@ while (i &lt= 333) {
 
 console.log(suma); /*suma = 233168*/
 </pre>
-<!----------------------------------------------------------->
+<!--------------------------------------------------------- -->
 <p>Y con un poco más de esfuerzo llegamos a esto:</p>
-<!----------------------------------------------------------->
+<!--------------------------------------------------------- -->
 
 <pre class="prettyprint lang-javascript linenums">
 var i = 0, suma = 0;
@@ -76,22 +77,22 @@ while (i++ &lt 333)
 
 console.log(suma); /*suma = 233168*/
 </pre>
-<!----------------------------------------------------------->
+<!--------------------------------------------------------- -->
 <p>Ahora utilizando unicamente funciones</p>
 
-<!----------------------------------------------------------->
+<!--------------------------------------------------------- -->
 
 <pre class="prettyprint lang-javascript linenums">
 function getMultiples(i) {
     return (3*i) + ( ((5*i) % 3 !== 0 && i &lt 200) * (5*i) );
 }
-function multiplesOf3And5(i = 0, sum = 0) {
+function multiplesOf3And5(i, sum) {
     if (i++ &lt 333)
         return multiplesOf3And5(i, sum += getMultiples(i));
 	
     return sum;
 }
 
-multiplesOf3And5();
+multiplesOf3And5(0, 0);
 </pre>
-<!----------------------------------------------------------->
+<!--------------------------------------------------------- -->

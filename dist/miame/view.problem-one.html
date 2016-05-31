@@ -56,12 +56,12 @@ console.log(suma); /*suma = 233168*/
 function getMultiples(i) {
     return (3*i) + ( ((5*i) % 3 !== 0 && i &lt 200) * (5*i) );
 }
-function multiplesOf3And5(i = 0, sum = 0) {
+function multiplesOf3And5(i, sum) {
     if (i++ &lt 333)
         return multiplesOf3And5(i, sum += getMultiples(i));
 	
     return sum;
 }
 
-multiplesOf3And5();
+multiplesOf3And5(0, 0);
 </pre>
